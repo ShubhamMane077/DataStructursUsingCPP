@@ -1,8 +1,7 @@
-#include<conio.h>
+#include <conio.h>
 #include<iostream>
-#include<stdio.h>
-class DLL
-{
+using namespace std;
+class DLL{
 private:
     struct node
     {
@@ -12,7 +11,20 @@ private:
 
     };
     node *start;
-    void insertAtFirst(int data)
+public:
+    DLL() : start(nullptr) {}
+
+    void insertAtFirst(int data);
+    void insertAtLast(int data);
+    void deleteFirst();
+    void deleteLast();
+    node* search(int data);
+    void insertAfter(int element, int data);
+    void deleteNode(int data);
+    void display();
+};
+
+void DLL:: insertAtFirst(int data)
     {
         node *n=new node;
         n->next=start;
@@ -22,7 +34,7 @@ private:
             start->prev=n;
         start=n;
     }
-    void insertAtLast(int data)
+    void DLL::insertAtLast(int data)
     {
         node *n,*t;
         n=new node;
@@ -43,13 +55,14 @@ private:
             t->next=n;
         }
     }
-    deleteFirst()
+    void DLL::deleteFirst()
     {
         if(start==NULL)
             cout<<"underflow";
-        node *t;
+
         else
         {
+            node *t;
             t=start;
             start=t->next;
             if(t->next!=NULL)
@@ -57,7 +70,7 @@ private:
             delete t;
         }
     }
-    deleteLast()
+    void DLL::deleteLast()
     {
         if(start==NULL)
             cout<<"Underflow";
@@ -76,7 +89,7 @@ private:
             delete t;
         }
     }
-    node* search(int data)
+    DLL::node* DLL::search(int data)
     {
         if(start==NULL)
             cout<<"Underflow";
@@ -90,7 +103,7 @@ private:
         }
         return NULL;
     }
-    void insertAfter(int element,int data)
+    void DLL::insertAfter(int element,int data)
     {
         node *temp=search(element);
         if(temp!=NULL)
@@ -105,7 +118,7 @@ private:
             cout<<"element search flaild ";
 
     }
-    deleteNode(int data)
+    void DLL::deleteNode(int data)
     {
         node *t=search(data);
         if(t!=NULL)
@@ -120,5 +133,31 @@ private:
         else
             cout<<"element Search failed";
     }
-};
+    void DLL::display() {
+    node *current = start;
+    while (current != nullptr) {
+        cout << current->item << " ";
+        current = current->next;
+    }
+    cout << endl;
+   }
 
+int main() {
+    DLL myList;
+
+    myList.insertAtFirst(10);
+    myList.insertAtLast(20);
+    myList.insertAtLast(30);
+    myList.insertAfter(20, 25);
+
+    myList.display();
+    myList.deleteFirst();
+    myList.deleteNode(30);
+    myList.deleteLast();
+
+    getch();
+
+
+
+    return 0;
+}
